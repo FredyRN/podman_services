@@ -21,6 +21,9 @@ services:
       - N8N_PROTOCOL=${N8N_PROTOCOL}
       - N8N_PORT=${N8N_PORT}
       - GENERIC_TIMEZONE=${GENERIC_TIMEZONE:-America/Bogota}
+      - N8N_RUNNERS_ENABLED=true
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      - N8N_EXPRESS_TRUST_PROXY=true
 
       # Email configuration
       - N8N_EMAIL_MODE=${N8N_EMAIL_MODE}
@@ -29,10 +32,10 @@ services:
       - N8N_SMTP_USER=${N8N_SMTP_USER}
       - N8N_SMTP_PASS=${N8N_SMTP_PASS}
       - N8N_SMTP_SENDER=${N8N_SMTP_SENDER}
+      - N8N_SMTP_SSL=${N8N_SMTP_SSL:-false}
 
       # Trusted proxy settings
       - N8N_TRUSTED_PROXIES=cloudflared
-      - NODE_TLS_REJECT_UNAUTHORIZED=0
       - N8N_PROTOCOL_HEADER=x-forwarded-proto
     volumes:
       - n8n_data:/home/node/.n8n
