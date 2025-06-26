@@ -1,0 +1,49 @@
+version: '3.8'
+services:
+  n8n:
+    image: docker.io/n8nio/n8n:latest
+    container_name: n8n_system
+    ports:
+      - "5678:5678"
+    environment:
+      # Database configuration
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=${POSTGRES_HOST}
+      - DB_POSTGRESDB_PORT=${POSTGRES_PORT:-5432}
+      - DB_POSTGRESDB_DATABASE=${POSTGRES_DATABASE}
+      - DB_POSTGRESDB_USER=${POSTGRES_USER}
+      - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD}
+
+      # n8n Core Settings
+      - NODE_ENV=${NODE_ENV}
+      - N8N_HOST=${N8N_HOST}
+      - WEBHOOK_URL=${WEBHOOK_URL}
+      - N8N_PROTOCOL=${N8N_PROTOCOL}
+      - N8N_PORT=${N8N_PORT}
+      - GENERIC_TIMEZONE=${GENERIC_TIMEZONE:-America/Bogota}
+
+      # Email configuration
+      - N8N_EMAIL_MODE=${N8N_EMAIL_MODE}
+      - N8N_SMTP_HOST=${N8N_SMTP_HOST}
+      - N8N_SMTP_PORT=${N8N_SMTP_PORT}
+      - N8N_SMTP_USER=${N8N_SMTP_USER}
+      - N8N_SMTP_PASS=${N8N_SMTP_PASS}
+      - N8N_SMTP_SENDER=${N8N_SMTP_SENDER}
+
+      # Trusted proxy settings
+      - N8N_TRUSTED_PROXIES=cloudflared
+      - NODE_TLS_REJECT_UNAUTHORIZED=0
+      - N8N_PROTOCOL_HEADER=x-forwarded-proto
+    volumes:
+      - n8n_data:/home/node/.n8n
+    networks:
+      - n8n_network
+
+volumes:
+  n8n_data:
+    name: n8n_data
+
+networks:
+  n8n_network:
+    name: lrn_network
+    external: true

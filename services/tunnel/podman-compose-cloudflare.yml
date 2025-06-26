@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  cloudflared:
+    image: docker.io/cloudflare/cloudflared:latest
+    container_name: cloud_tunnel
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN}
+    environment:
+      - CLOUDFLARE_TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
+    networks:
+      - cloud_network
+    volumes:
+      - ./cloudflared:/etc/cloudflared:Z
+
+networks:
+  cloud_network:
+    name: lrn_network
+    external: true

@@ -1,0 +1,25 @@
+# Ignorar todos los archivos .env y variantes en cualquier ruta
+**/.env
+**/.env.*
+
+# Opcional: ignorar otros archivos sensibles si los usas
+**/*.secret
+**/*.key
+**/*.pem
+
+# Carpetas de volúmenes o bases de datos (si las tienes)
+volumes/
+pgdata/
+db_data/
+mongo_data/
+logs/
+tmp/
+
+# Ignorar archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar backups
+*.bak
+*.old
+*.backup

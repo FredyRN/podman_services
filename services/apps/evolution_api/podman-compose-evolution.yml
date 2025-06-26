@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  redis:
+    image: docker.io/redis:7
+    container_name: evolution_redis
+    restart: always
+    ports:
+      - "6379:6379"
+  evolution-api:
+    container_name: evolution_api
+    image: docker.io/atendai/evolution-api:v2.0.10
+    restart: unless-stopped
+    ports:
+      - "7845:8080"
+    env_file:
+      - .env
+    depends_on:
+      - redis
+    volumes:
+      - evolution_instances:/evolution/instances:Z
+    networks:
+      - evolution_network
+
+volumes:
+  evolution_instances:
+
+networks:
+  evolution_network:
+    external: true
+    name: lrn_network

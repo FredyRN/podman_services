@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  odoo:
+    image: docker.io/odoo:17
+    container_name: odoo_app
+    restart: unless-stopped
+    environment:
+      HOST: ${ODOO_HOST}
+      USER: ${ODOO_USER}
+      PASSWORD: ${ODOO_PASS}
+    #command: ["odoo", "-d", "lrn_services", "-i", "base", "--without-demo=all", "--stop-after-init"]
+    ports:
+      - "8069:8069"
+    volumes:
+      - odoo_data:/var/lib/odoo:Z
+    networks:
+      - odoo_net
+
+volumes:
+  odoo_data:
+
+networks:
+  odoo_net:
+    external: true
+    name: lrn_network
