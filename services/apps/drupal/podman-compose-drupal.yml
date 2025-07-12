@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  drupal:
+    image: docker.io/drupal:latest
+    container_name: drupal_system
+    ports:
+      - "8069:8069"
+    environment:
+      DRUPAL_DB_HOST: ${POSTGRES_HOST}
+      DRUPAL_DB_NAME: ${POSTGRES_DB}
+      DRUPAL_DB_USER: ${POSTGRES_USER}
+      DRUPAL_DB_PASSWORD: ${POSTGRES_PASSWORD}
+      PHP_MEMORY_LIMIT: 512M
+      PHP_MAX_EXECUTION_TIME: 300
+    volumes:
+      - drupal_data:/var/www/html
+    restart: always
+    networks:
+      - drupal_network
+
+volumes:
+  drupal_data:
+
+networks:
+  drupal_network:
+    external: true
+    name: lrn_network
