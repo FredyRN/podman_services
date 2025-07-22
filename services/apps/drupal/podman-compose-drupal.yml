@@ -2,10 +2,13 @@ version: '3.8'
 
 services:
   drupal:
+    build:
+      context: .
+      dockerfile: Dockerfile.drupal
     image: docker.io/drupal:latest
     container_name: drupal_system
     ports:
-      - "8069:8069"
+      - "8069:80"
     environment:
       DRUPAL_DB_HOST: ${POSTGRES_HOST}
       DRUPAL_DB_NAME: ${POSTGRES_DB}
@@ -15,6 +18,7 @@ services:
       PHP_MAX_EXECUTION_TIME: 300
     volumes:
       - drupal_data:/var/www/html
+      - ./apache-servername.conf:/etc/apache2/conf-enabled/servername.conf:ro
     restart: always
     networks:
       - drupal_network

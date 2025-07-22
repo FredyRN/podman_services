@@ -1,0 +1,40 @@
+FROM drupal:latest
+
+# Variables de entorno (puedes sobreescribirlas desde docker-compose)
+ENV PHP_MEMORY_LIMIT=512M \
+    PHP_MAX_EXECUTION_TIME=300
+
+# Actualiza el sistema e instala dependencias necesarias
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libavif-dev \
+    libwebp-dev \
+    libjpeg-dev \
+    libpng-dev \
+    libfreetype6-dev \
+    libzip-dev \
+    unzip \
+    vim \
+    nano \
+    && docker-php-ext-configure gd --with-avif --with-jpeg --with-freetype --with-webp \
+    && docker-php-ext-install gd \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Configura Apache para evitar advertencia de ServerName
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+# Agrega trusted_host_patterns automáticamente
+RUN mkdir -p /var/www/html/sites/default \
+    && cp /var/www/html/sites/default/default.settings.php /var/www/html/sites/default/settings.php \
+    && chmod 664 /var/www/html/sites/default/settings.php \
+    && echo "\$settings['trusted_host_patterns'] = [" >> /var/www/html/sites/default/settings.php \
+    && echo "  '^larana\.agency$'," >> /var/www/html/sites/default/settings.php \
+    && echo "  '^www\.larana\.agency$'," >> /var/www/html/sites/default/settings.php \
+    && echo "  '^localhost$'," >> /var/www/html/sites/default/settings.php \
+    && echo "  '^127\.0\.0\.1$'," >> /var/www/html/sites/default/settings.php \
+    && echo "];" >> /var/www/html/sites/default/settings.php
+
+# Permisos adecuados para Drupal
+RUN chown -R www-data:www-data /var/www/html/sites
+
+# Expone el puerto por defecto
+EXPOSE 80
