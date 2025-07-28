@@ -1,0 +1,7 @@
+FROM docker.io/atendai/evolution-api:v2.1.1
+
+RUN microdnf install -y curl \
+ || (apt-get update && apt-get install -y curl) \
+ || (apk add --no-cache curl)
+
+RUN curl --version

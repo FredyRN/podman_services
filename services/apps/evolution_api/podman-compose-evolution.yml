@@ -7,9 +7,15 @@ services:
     restart: always
     ports:
       - "6379:6379"
-  evolution-api:
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+  evolution_api:
     container_name: evolution_api
-    image: docker.io/atendai/evolution-api:v2.0.10
+    image: atendai/evolution-api:with-curl
     restart: unless-stopped
     ports:
       - "7845:8080"
@@ -21,6 +27,12 @@ services:
       - evolution_instances:/evolution/instances:Z
     networks:
       - evolution_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
 volumes:
   evolution_instances:
