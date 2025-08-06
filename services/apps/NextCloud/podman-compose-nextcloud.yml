@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  nextcloud:
+    image: docker.io/nextcloud:stable
+    container_name: nextcloud
+    restart: always
+    networks:
+      - netxtcloud_net
+    ports:
+      - "9513:80"
+    volumes:
+      - nextcloud_data:/var/www/html
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+volumes:
+  nextcloud_data:
+
+networks:
+  netxtcloud_net:
+    external: true
+    name: lrn_network
