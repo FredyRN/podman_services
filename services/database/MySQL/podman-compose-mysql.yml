@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: docker.io/mysql:8.0
+    container_name: mysql_server
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot_pass"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - mysql_netwoek
+
+volumes:
+  mysql_data:
+
+networks:
+  mysql_netwoek:
+    external: true
+    name: lrn_network
+  

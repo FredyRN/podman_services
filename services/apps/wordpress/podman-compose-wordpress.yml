@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  wordpress:
+    image: docker.io/wordpress:php8.3-apache
+    container_name: lrn_wordpress
+    restart: always
+    ports:
+      - "8080:80"
+    env_file:
+      - .env
+    networks:
+      - lrn_wordpress_network
+    volumes:
+      - wp_data:/var/www/html
+      - ./custom-php.ini:/usr/local/etc/php/conf.d/custop-php.ini
+
+volumes:
+  wp_data:
+
+networks:
+  lrn_wordpress_network:
+    external: true
+    name: lrn_network
