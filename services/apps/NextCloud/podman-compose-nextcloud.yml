@@ -13,11 +13,6 @@ services:
       - nextcloud_data:/var/www/html
     env_file:
       - .env
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
 
 volumes:
   nextcloud_data:
