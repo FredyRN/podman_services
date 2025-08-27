@@ -7,7 +7,7 @@ services:
     restart: always
     env_file: .env
     ports:
-      - "8082:82"
+      - "8082:80"
     volumes:
       - oo_logs:/var/log/onlyoffice
       - oo_data:/var/www/onlyoffice/Data
