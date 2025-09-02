@@ -6,12 +6,7 @@ services:
     restart: always
     env_file:
       - .env
-    command: >
-      sh -c "redis-server
-             --save 20 1
-             --loglevel warning
-             --requirepass \"$REDIS_PASSWORD\"
-             --appendonly yes"
+    command: ["redis-server", "--save", "20", "1", "--loglevel", "warning", "--requirepass", "${REDIS_PASSWORD}", "--appendonly", "yes"]
     volumes: 
       - redis_cache:/data
     networks:
