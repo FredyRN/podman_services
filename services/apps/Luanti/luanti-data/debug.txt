@@ -1,0 +1,54 @@
+
+
+-------------
+  Separator
+-------------
+
+2025-09-10 02:24:05: ACTION[Main]: [log] modname="log"
+2025-09-10 02:24:05: ACTION[Main]: [log] modpath="/config/.minetest/games/devtest/mods/log"
+2025-09-10 02:24:05: ACTION[Main]: [log] worldpath="/config/.minetest/worlds/world"
+2025-09-10 02:24:05: ACTION[Main]: [log] Callback: on_mods_loaded()
+2025-09-10 02:24:05: ACTION[Main]: World at [/config/.minetest/worlds/world]
+2025-09-10 02:24:05: ACTION[Main]: Server for gameid="devtest" listening on [::]:30000.
+2025-09-10 02:25:29: ACTION[Main]: Server: Shutting down
+
+
+-------------
+  Separator
+-------------
+
+2025-09-10 02:25:34: [Main]: Automatically selecting world at [/config/.minetest/worlds/world]
+2025-09-10 02:25:34: ACTION[Main]: [log] modname="log"
+2025-09-10 02:25:34: ACTION[Main]: [log] modpath="/config/.minetest/games/devtest/mods/log"
+2025-09-10 02:25:34: ACTION[Main]: [log] worldpath="/config/.minetest/worlds/world"
+2025-09-10 02:25:34: ACTION[Main]: [log] Callback: on_mods_loaded()
+2025-09-10 02:25:34: ACTION[Main]: World at [/config/.minetest/worlds/world]
+2025-09-10 02:25:34: ACTION[Main]: Server for gameid="devtest" listening on [::]:30000.
+2025-09-10 02:29:46: ACTION[Main]: Server: Shutting down
+
+
+-------------
+  Separator
+-------------
+
+2025-09-10 02:29:51: [Main]: Automatically selecting world at [/config/.minetest/worlds/world]
+2025-09-10 02:29:51: ACTION[Main]: [log] modname="log"
+2025-09-10 02:29:51: ACTION[Main]: [log] modpath="/config/.minetest/games/devtest/mods/log"
+2025-09-10 02:29:51: ACTION[Main]: [log] worldpath="/config/.minetest/worlds/world"
+2025-09-10 02:29:52: ACTION[Main]: [log] Callback: on_mods_loaded()
+2025-09-10 02:29:52: ACTION[Main]: World at [/config/.minetest/worlds/world]
+2025-09-10 02:29:52: ACTION[Main]: Server for gameid="devtest" listening on [::]:30000.
+2025-09-10 02:29:59: ACTION[Main]: Server: Shutting down
+
+
+-------------
+  Separator
+-------------
+
+2025-09-10 02:30:34: [Main]: Automatically selecting world at [/config/.minetest/worlds/world]
+2025-09-10 02:30:34: ACTION[Main]: [log] modname="log"
+2025-09-10 02:30:34: ACTION[Main]: [log] modpath="/config/.minetest/games/devtest/mods/log"
+2025-09-10 02:30:34: ACTION[Main]: [log] worldpath="/config/.minetest/worlds/world"
+2025-09-10 02:30:34: ACTION[Main]: [log] Callback: on_mods_loaded()
+2025-09-10 02:30:34: ACTION[Main]: World at [/config/.minetest/worlds/world]
+2025-09-10 02:30:34: ACTION[Main]: Server for gameid="devtest" listening on [::]:30000.
