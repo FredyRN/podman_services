@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  storage:
+    image: docker.io/minio/minio:latest
+    container_name: s3_storage
+    restart: unless-stopped
+    networks:
+      - lrn_network
+    volumes:
+      - ${STORAGE_VOLUME_PATH}:/data
+    environment:
+      - MINIO_ROOT_USER=${STORAGE_ACCESS_KEY}
+      - MINIO_ROOT_PASSWORD=${STORAGE_SECRET_KEY}
+      - MINIO_DOMAIN=s3_storage,10.89.0.28
+    command: server /data --address ":9000" --console-address ":9001"
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+
+networks:
+  lrn_network:
+    external: true

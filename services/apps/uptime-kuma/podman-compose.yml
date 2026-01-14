@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  uptime_kuma:
+    image: docker.io/louislam/uptime-kuma:1
+    container_name: uptime_kuma
+    restart: unless-stopped
+    networks:
+      - lrn_network
+    ports:
+      - "${UPTIME_KUMA_PORT}:3001"
+    volumes:
+      - uptime_kuma_data:/app/data
+    security_opt:
+      - no-new-privileges:true
+
+networks:
+  lrn_network:
+    external: true
+
+volumes:
+  uptime_kuma_data:
+    external: false

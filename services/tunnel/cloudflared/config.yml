@@ -1,0 +1,21 @@
+tunnel: 7af9a2aa-c303-44ac-aae1-cd17ee5e745b
+
+no-autoupdate: true
+
+ingress:
+  # WordPress
+  - hostname: larana.agency
+    service: http://lrn_wordpress:80
+
+  # Adminer
+  - hostname: databases.larana.agency
+    service: http://adminer:8080
+  # Onlyoffice
+  - hostname: docs.larana.agency
+    service: http://onlyoffice:80
+  # NextCloud
+  - hostname: drive.larana.agency
+    service: http://lrn_nextcloud:80
+
+  # Catch-all obligatorio
+  - service: http_status:404

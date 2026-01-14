@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  adminer:
+    image: docker.io/adminer:latest
+    container_name: adminer
+    restart: unless-stopped
+    environment:
+      ADMINER_DESIGN: ${ADMINER_DESIGN}
+    networks:
+      - lrn_network
+    expose:
+      - "8080"
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+networks:
+  lrn_network:
+    external: true

@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  nifi:
+    image: ${NIFI_VERSION}
+    container_name: nifi-server
+    restart: unless-stopped
+    ports:
+      - "${NIFI_WEB_HTTP_PORT:-8080}:8080"
+      - "${NIFI_WEB_HTTPS_PORT:-8443}:8443"
+    environment:
+      - SINGLE_USER_CREDENTIALS_USERNAME=${NIFI_USERNAME}
+      - SINGLE_USER_CREDENTIALS_PASSWORD=${NIFI_PASSWORD}
+
+      - NIFI_WEB_PROXY_HOST=${NIFI_WEB_PROXY_HOST}
+
+      # Opcional: Descomenta para usar HTTP en lugar de HTTPS
+      # - NIFI_WEB_HTTP_PORT=${NIFI_WEB_HTTP_PORT}
+
+      # Opcional: Configuración de la JVM
+      # - NIFI_JVM_HEAP=${NIFI_JVM_HEAP}
+    volumes:
+      - ${NIFI_DATA_DIRECTORY}:/opt/nifi/nifi-current/data
+
+      # (Opcional) Si tienes configuraciones personalizadas, puedes mapearlas también:
+      # - ./conf:/opt/nifi/nifi-current/conf
+      # - ./extensions:/opt/nifi/nifi-current/extensions
+    networks:
+      - nifi-network
+
+networks:
+  nifi-network:
+    external: true
+    name: lrn_network

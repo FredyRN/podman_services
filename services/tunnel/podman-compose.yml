@@ -1,18 +1,28 @@
-version: '3.8'
+version: "3.8"
+
 services:
   cloudflared:
     image: docker.io/cloudflare/cloudflared:latest
     container_name: cloud_tunnel
     restart: unless-stopped
+    user: "65532:65532"   # nobody
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp
     command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN}
     environment:
-      - CLOUDFLARE_TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
+      CLOUDFLARE_TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN}
     networks:
-      - cloud_network
+      - lrn_network
     volumes:
-      - ./cloudflared:/etc/cloudflared:Z
+      - ./cloudflared/config.yml:/etc/cloudflared/config.yml:ro,Z
+      #- ./cloudflared:/etc/cloudflared:Z
 
 networks:
-  cloud_network:
-    name: lrn_network
+  lrn_network:
     external: true
+    name: lrn_network

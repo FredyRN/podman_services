@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  documentserver:
+    image: docker.io/onlyoffice/documentserver:latest
+    container_name: onlyoffice
+    restart: unless-stopped
+    env_file: .env
+    expose:
+      - "80"
+    volumes:
+      - oo_logs:/var/log/onlyoffice
+      - oo_data:/var/www/onlyoffice/Data
+      - oo_lib:/var/lib/onlyoffice
+      - oo_postgres:/var/lib/postgresql
+      - oo_rabbitmq:/var/lib/rabbitmq
+      - oo_redis:/var/lib/redis
+    networks:
+      - lrn_network
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+volumes:
+  oo_logs:
+  oo_data:
+  oo_lib:
+  oo_postgres:
+  oo_rabbitmq:
+  oo_redis:
+
+networks:
+  lrn_network:
+    external: true

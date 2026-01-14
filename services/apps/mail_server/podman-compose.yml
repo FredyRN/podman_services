@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  mail:
+    image: docker.io/mailserver/mailserver:latest
+    container_name: mail_server
+    restart: unless-stopped
+    networks:
+      - lrn_network
+    ports:
+      - "25:25"
+      - "587:587"
+      - "993:993"
+    volumes:
+      - ${MAIL_DATA_PATH}:/var/mail
+      - ${MAIL_STATE_PATH}:/var/mail-state
+      - ${MAIL_CONFIG_PATH}:/tmp/docker-mailserver
+    env_file:
+      - .env
+    # Correo puede ser intensivo en RAM con SpamAssassin, lo limitamos
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+networks:
+  lrn_network:
+    external: true

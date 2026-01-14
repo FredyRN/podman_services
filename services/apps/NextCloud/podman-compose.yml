@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  nextcloud:
+    image: docker.io/nextcloud:stable
+    container_name: lrn_nextcloud
+    restart: unless-stopped
+    expose:
+      - "80"
+    env_file:
+      - .env
+    volumes:
+      - nextcloud_data:/var/www/html
+    networks:
+      - lrn_network
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+  nextcloud_cron:
+    image: docker.io/nextcloud:stable
+    container_name: lrn_nextcloud_cron
+    restart: unless-stopped
+    entrypoint: /cron.sh
+    volumes:
+      - nextcloud_data:/var/www/html
+    networks:
+      - lrn_network
+    depends_on:
+      - nextcloud
+volumes:
+  nextcloud_data:
+
+networks:
+  lrn_network:
+    external: true

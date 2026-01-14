@@ -23,3 +23,10 @@ Thumbs.db
 *.bak
 *.old
 *.backup
+
+# Excluir datos de contenedores
+services/database/MariaDB/data/
+services/apps/Luanti/luanti-data/
+
+# Excluir archivos sensibles o innecesarios
+**/.bash_history

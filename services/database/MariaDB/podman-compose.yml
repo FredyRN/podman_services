@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  database:
+    image: docker.io/mariadb:latest
+    container_name: mariadb
+    restart: unless-stopped
+    networks:
+      - lrn_network
+    volumes:
+      - ${DB_VOLUME_PATH}:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+    # Recursos ajustados para 10 usuarios
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+	# Database optimization
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW --innodb-file-per-table=1 --skip-innodb-read-only-compressed
+
+networks:
+  lrn_network:
+    external: true
